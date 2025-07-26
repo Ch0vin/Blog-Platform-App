@@ -2,11 +2,10 @@ package com.chovin.blog.domain.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.engine.internal.Cascade;
+
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @NoArgsConstructor
@@ -27,6 +26,8 @@ public class User {
     private String name;
     @Column(nullable = false)
     private LocalDateTime createdAt;
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL , orphanRemoval = true)
+    private List<Post> posts = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {
